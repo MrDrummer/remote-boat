@@ -12,6 +12,7 @@ int potValue;
 int windRelative;
 
 // The wind direction relative to the compass
+// We need this to determine if the direction we want to go is in the noGoZone.
 int windActual;
 
 // The current direction the boat is pointing.
@@ -27,6 +28,18 @@ void setup() {
   Serial.begin(9600);
 }
 
+void inNoGoZone(bearing, windActual) {
+  if (bearing){}
+}
+
+void calcBearing(bearing) {
+  if (bearing > 359) {
+    // We could run it through the function again here until it is below 360, but we shouldn't need that.
+    return bearing - 360
+  }
+  return bearing
+}
+
 void loop() {
   potValue = analogRead(potPin);
   windRelative = map(potValue, 0, 1023, 0, 360);
@@ -35,9 +48,7 @@ void loop() {
   // 270           270               0
   // 360 (0)       270               90
   // 450 (90)      180               270
-  windActual = compassBearing + windRelative
-
-
+  windActual = calcBearing(compassBearing + windRelative)
 
   
 }
