@@ -1,19 +1,33 @@
 //Constants:
-const int potPin = A0; //pin A0 to read analog input
+
+// pin A0 is the potentiometer pin
+const int potPin = A0;
 
 //Variables:
-int value; //save analog value
 
-void setup(){
+// The true value from the pot.
+int potValue;
+
+// The determined angle of the wind relative to the boat's bearing.
+int windAngle;
+
+// The current direction the boat is pointing.
+int compassBearing = 0;
+
+// The destination we want to go (90 = E)
+int destinationBearing = 90
+
+void setup() {
   pinMode(potPin, INPUT);
   Serial.begin(9600);
 }
 
-void loop(){
-  value = analogRead(potPin);
-  value = map(value, 0, 1023, 0, 360);
-  Serial.println(value);
-  // comment here
+void loop() {
+  potValue = analogRead(potPin);
+  windAngle = map(potValue, 0, 1023, 0, 360);
+  Serial.println(windAngle);
+
+  
 }
 
 
