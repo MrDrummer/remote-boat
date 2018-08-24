@@ -9,13 +9,18 @@ const int potPin = A0;
 int potValue;
 
 // The determined angle of the wind relative to the boat's bearing.
-int windAngle;
+int windRelative;
+
+// The wind direction relative to the compass
+int windActual;
 
 // The current direction the boat is pointing.
 int compassBearing = 0;
 
-// The destination we want to go (90 = E)
+// The destination we want to go relative to the compass(90 = E)
 int destinationBearing = 90
+
+int noGoZone = false
 
 void setup() {
   pinMode(potPin, INPUT);
@@ -24,8 +29,15 @@ void setup() {
 
 void loop() {
   potValue = analogRead(potPin);
-  windAngle = map(potValue, 0, 1023, 0, 360);
-  Serial.println(windAngle);
+  windRelative = map(potValue, 0, 1023, 0, 360);
+  Serial.println(windRelative);
+
+  // 270           270               0
+  // 360 (0)       270               90
+  // 450 (90)      180               270
+  windActual = compassBearing + windRelative
+
+
 
   
 }
